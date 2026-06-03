@@ -1,0 +1,257 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Design tokens: light (default class on :root for Tailwind) ─── */
+@theme inline {
+  --color-background: #f8fafc;
+  --color-foreground: #0f172a;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0f172a;
+  --color-primary: #0f172a;
+  --color-primary-foreground: #f8fafc;
+  --color-secondary: #f1f5f9;
+  --color-secondary-foreground: #0f172a;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-accent: #e2e8f0;
+  --color-accent-foreground: #0f172a;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #fef2f2;
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #3b82f6;
+  --radius: 0.75rem;
+}
+
+/* ─── Premium dark palette (#050505 base) ─── */
+.dark {
+  --color-background: #050505;
+  --color-foreground: #f4f4f5;
+  --color-card: #0a0a0a;
+  --color-card-foreground: #f4f4f5;
+  --color-popover: #0a0a0a;
+  --color-popover-foreground: #f4f4f5;
+  --color-primary: #fafafa;
+  --color-primary-foreground: #050505;
+  --color-secondary: #111111;
+  --color-secondary-foreground: #f4f4f5;
+  --color-muted: #141414;
+  --color-muted-foreground: #a1a1aa;
+  --color-accent: #18181b;
+  --color-accent-foreground: #f4f4f5;
+  --color-destructive: #7f1d1d;
+  --color-destructive-foreground: #fef2f2;
+  --color-border: #1f1f23;
+  --color-input: #1f1f23;
+  --color-ring: #6366f1;
+
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-hover: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-hover: rgba(255, 255, 255, 0.14);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --glass-glow: 0 0 40px rgba(99, 102, 241, 0.08);
+  --input-bg: rgba(255, 255, 255, 0.04);
+  --grid-line: rgba(255, 255, 255, 0.03);
+  --aurora-1: rgba(99, 102, 241, 0.35);
+  --aurora-2: rgba(168, 85, 247, 0.28);
+  --aurora-3: rgba(59, 130, 246, 0.22);
+  --blob-1: #6366f1;
+  --blob-2: #8b5cf6;
+  --blob-3: #3b82f6;
+  --particle: 217, 91%, 65%;
+  --navbar-bg: rgba(5, 5, 5, 0.75);
+}
+
+.light {
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-bg-hover: rgba(255, 255, 255, 0.92);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-border-hover: rgba(15, 23, 42, 0.14);
+  --glass-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+  --glass-glow: 0 0 40px rgba(59, 130, 246, 0.06);
+  --input-bg: rgba(15, 23, 42, 0.03);
+  --grid-line: rgba(15, 23, 42, 0.06);
+  --aurora-1: rgba(99, 102, 241, 0.18);
+  --aurora-2: rgba(168, 85, 247, 0.14);
+  --aurora-3: rgba(59, 130, 246, 0.12);
+  --blob-1: #818cf8;
+  --blob-2: #a78bfa;
+  --blob-3: #60a5fa;
+  --particle: 221, 83%, 53%;
+  --navbar-bg: rgba(248, 250, 252, 0.85);
+}
+
+@layer base {
+  * {
+    @apply border-border selection:bg-indigo-500/25 selection:text-foreground;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  html.dark {
+    scrollbar-color: #27272a transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-fuchsia-400;
+  }
+  .text-gradient-blue {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-400;
+  }
+
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    @apply backdrop-blur-2xl;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .glass:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+  }
+
+  .glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    @apply backdrop-blur-2xl rounded-2xl transition-all duration-500;
+  }
+
+  .glass-card:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-shadow), var(--glass-glow);
+  }
+
+  .border-glass {
+    border-color: var(--glass-border);
+  }
+
+  .border-glass-hover:hover {
+    border-color: var(--glass-border-hover);
+  }
+
+  .input-field {
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    @apply text-foreground outline-none transition-all duration-300;
+  }
+
+  .input-field:focus {
+    border-color: color-mix(in srgb, var(--color-ring) 50%, transparent);
+    @apply ring-2 ring-ring/20;
+  }
+
+  .btn-primary {
+    @apply relative overflow-hidden rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground transition-all duration-300;
+  }
+
+  .btn-primary:hover {
+    @apply shadow-lg shadow-indigo-500/25;
+  }
+
+  .btn-glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    @apply rounded-full px-7 py-3.5 text-sm font-medium backdrop-blur-xl transition-all duration-300;
+  }
+
+  .btn-glass:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+  }
+
+  .glow-hover {
+    transition: box-shadow 0.5s ease;
+  }
+
+  .glow-hover:hover {
+    box-shadow: var(--glass-glow);
+  }
+
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-24 md:py-32;
+  }
+  .max-width {
+    @apply max-w-7xl mx-auto;
+  }
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+  .section-divider {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+}
+
+/* ─── Lightweight static background (no canvas / no heavy blur) ─── */
+.live-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+
+.live-bg__base {
+  position: absolute;
+  inset: 0;
+  background: var(--color-background);
+}
+
+.live-bg__gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0%, var(--aurora-1), transparent 50%),
+    radial-gradient(ellipse 60% 45% at 85% 10%, var(--aurora-2), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, var(--aurora-3), transparent 55%);
+  opacity: 0.9;
+}
+
+.live-bg__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 75%);
+}
+
+.live-bg__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 70% at 50% 45%, transparent 40%, var(--color-background) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
