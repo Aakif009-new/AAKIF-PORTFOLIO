@@ -6,8 +6,12 @@ import { ProfileAvatar } from "@/components/ui/ProfileAvatar";
 import { HiArrowDown, HiDownload } from "react-icons/hi";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { personalInfo } from "@/lib/data";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 
 export function Hero() {
+  const router = useRouter();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -92,10 +96,10 @@ export function Hero() {
           variants={itemVariants}
           className="mb-8 flex flex-wrap items-center justify-center gap-3 sm:mb-10 sm:gap-4"
         >
-          <a href="#projects" className="btn-primary group">
+          <Link href="/projects" className="btn-primary group">
             <span className="relative z-10">View My Work</span>
             <span className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-          </a>
+          </Link>
           <a href={personalInfo.resumeUrl} className="btn-glass flex items-center gap-2">
             <HiDownload size={16} />
             Resume
@@ -129,11 +133,9 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.6 }}
-        onClick={() =>
-          document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" })
-        }
+        onClick={() => router.push("/about")}
         className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-full glass border-glass p-3 text-muted-foreground transition-all duration-300 hover:text-foreground motion-safe:animate-bounce sm:bottom-8"
-        aria-label="Scroll to about section"
+        aria-label="Navigate to about section"
       >
         <HiArrowDown size={20} />
       </motion.button>

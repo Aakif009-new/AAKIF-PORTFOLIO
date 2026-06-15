@@ -26,16 +26,16 @@
   --radius: 0.75rem;
 }
 
-/* ─── Premium dark palette (#050505 base) ─── */
+/* ─── Premium dark palette (#000000 base) ─── */
 .dark {
-  --color-background: #050505;
+  --color-background: #000000;
   --color-foreground: #f4f4f5;
-  --color-card: #0a0a0a;
+  --color-card: #080808;
   --color-card-foreground: #f4f4f5;
-  --color-popover: #0a0a0a;
+  --color-popover: #080808;
   --color-popover-foreground: #f4f4f5;
   --color-primary: #fafafa;
-  --color-primary-foreground: #050505;
+  --color-primary-foreground: #000000;
   --color-secondary: #111111;
   --color-secondary-foreground: #f4f4f5;
   --color-muted: #141414;
@@ -47,7 +47,7 @@
   --color-border: #1f1f23;
   --color-input: #1f1f23;
   --color-ring: #6366f1;
-
+ 
   --glass-bg: rgba(255, 255, 255, 0.04);
   --glass-bg-hover: rgba(255, 255, 255, 0.07);
   --glass-border: rgba(255, 255, 255, 0.09);
@@ -63,8 +63,9 @@
   --blob-2: #8b5cf6;
   --blob-3: #3b82f6;
   --particle: 217, 91%, 65%;
-  --navbar-bg: rgba(5, 5, 5, 0.75);
+  --navbar-bg: rgba(0, 0, 0, 0.75);
 }
+
 
 .light {
   --glass-bg: rgba(255, 255, 255, 0.75);
@@ -227,14 +228,72 @@
   background: var(--color-background);
 }
 
-.live-bg__gradient {
+.live-bg__aurora {
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 15% 0%, var(--aurora-1), transparent 50%),
-    radial-gradient(ellipse 60% 45% at 85% 10%, var(--aurora-2), transparent 50%),
-    radial-gradient(ellipse 50% 40% at 50% 100%, var(--aurora-3), transparent 55%);
-  opacity: 0.9;
+  pointer-events: none;
+  mix-blend-mode: normal;
+  will-change: transform;
+  opacity: 0.95;
+}
+
+.live-bg__aurora--1 {
+  top: -30%;
+  left: -20%;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, var(--aurora-1), transparent 70%);
+  animation: aurora-float-1 30s ease-in-out infinite;
+}
+
+.live-bg__aurora--2 {
+  top: -20%;
+  right: -20%;
+  width: 90vw;
+  height: 90vh;
+  background: radial-gradient(circle at center, var(--aurora-2), transparent 70%);
+  animation: aurora-float-2 25s ease-in-out infinite alternate;
+}
+
+.live-bg__aurora--3 {
+  bottom: -30%;
+  left: 10%;
+  width: 95vw;
+  height: 95vh;
+  background: radial-gradient(circle at center, var(--aurora-3), transparent 70%);
+  animation: aurora-float-3 28s ease-in-out infinite;
+}
+
+@keyframes aurora-float-1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(8vw, 12vh) scale(1.1);
+  }
+  66% {
+    transform: translate(-4vw, 6vh) scale(0.95);
+  }
+}
+
+@keyframes aurora-float-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate(-10vw, 8vh) scale(1.15);
+  }
+}
+
+@keyframes aurora-float-3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(6vw, -10vh) scale(0.9);
+  }
+  66% {
+    transform: translate(-8vw, -4vh) scale(1.05);
+  }
 }
 
 .live-bg__grid {
@@ -242,6 +301,7 @@
   inset: 0;
   opacity: 0.35;
   mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 75%);
+
 }
 
 .live-bg__vignette {
@@ -254,4 +314,8 @@
   html {
     scroll-behavior: auto;
   }
+  .live-bg__aurora {
+    animation: none !important;
+  }
 }
+

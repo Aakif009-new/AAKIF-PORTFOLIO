@@ -2,6 +2,7 @@
 
 import { FiGithub, FiLinkedin, FiHeart, FiMail } from "react-icons/fi";
 import { personalInfo } from "@/lib/data";
+import { useRouter } from "next/navigation";
 
 const footerLinks = [
   { label: "Home", href: "#home" },
@@ -14,9 +15,11 @@ const footerLinks = [
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const router = useRouter();
 
-  const scrollTo = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  const navigateTo = (href: string) => {
+    const path = href === "#home" ? "/" : `/${href.slice(1)}`;
+    router.push(path);
   };
 
   return (
@@ -25,7 +28,7 @@ export function Footer() {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 mb-6">
           <div>
             <button
-              onClick={() => scrollTo("#home")}
+              onClick={() => navigateTo("#home")}
               className="text-lg font-bold tracking-tight"
               aria-label="Go to home"
             >
@@ -45,7 +48,7 @@ export function Footer() {
               {footerLinks.map((link) => (
                 <button
                   key={link.label}
-                  onClick={() => scrollTo(link.href)}
+                  onClick={() => navigateTo(link.href)}
                   className="text-xs text-muted-foreground hover:text-foreground transition-colors w-fit"
                 >
                   {link.label}
